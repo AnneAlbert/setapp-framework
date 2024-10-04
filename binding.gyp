@@ -5,7 +5,8 @@
     "module_bindnings_path": "nodejs/lib/binding",
     "path_for_nodejs_package": "nodejs/lib/binding",
     "setapp_framework_path": "Setapp.xcframework",
-    "setapp_macos_library_path": "<(setapp_framework_path)/macos-arm64_x86_64"
+    "setapp_macos_library_path": "<(setapp_framework_path)/macos-arm64_x86_64",
+    "openssl_fips": ""
   },
   "targets": [
     {
@@ -36,10 +37,18 @@
               ]
             },
             "xcode_settings": {
+              "ONLY_ACTIVE_ARCH": "NO",
+              "VALID_ARCHS": "arm64 x86_64",
               "OTHER_LDFLAGS": [
                 "$(inherited)",
                 "-force_load ../<(setapp_macos_library_path)/libSetapp.a",
-                "-ObjC"
+                "-ObjC",
+                "-arch x86_64",
+                "-arch arm64"
+              ],
+              "OTHER_CFLAGS": [
+                "-arch x86_64",
+                "-arch arm64"
               ],
               "MACOSX_DEPLOYMENT_TARGET": "12.0",
               "GCC_ENABLE_CPP_EXCEPTIONS": "YES"
